@@ -386,7 +386,7 @@ p.slide-p-lg {
 .slide-cover-bg {
   background:
     linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.48) 100%),
-    url('ppt screenshots/Homepage Screenshot.png') center/cover no-repeat,
+    url('ppt screenshots/Homepage header.png') center/cover no-repeat,
     #333;
 }
 .slide-cover-bg .slide-topbar { background: rgba(255,255,255,0.06); }
@@ -519,18 +519,35 @@ p.slide-p-lg {
   background: #EBF5EF;
   border-left-color: var(--green);
 }
+#gate {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--navy);
+}
+#gate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.70) 100%),
+    url('ppt screenshots/Homepage header.png') center/cover no-repeat;
+  filter: blur(15px);
+  transform: scale(1.08);
+  z-index: 1;
+}
 </style>
 </head>
 <body>
 <!-- PASSWORD GATE -->
-<div id="gate" style="
-  position:fixed;inset:0;z-index:999999;
-  background:
-    linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.70) 100%),
-    url('ppt screenshots/Homepage Screenshot.png') center/cover no-repeat,#1B2D5B;
-  display:flex;align-items:center;justify-content:center;
-">
+<div id="gate">
   <div style="
+    position: relative;
+    z-index: 2;
     background:rgba(255,255,255,0.07);
     backdrop-filter:blur(18px);
     border:1px solid rgba(255,255,255,0.18);
