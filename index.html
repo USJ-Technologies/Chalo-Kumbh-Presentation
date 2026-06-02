@@ -48,12 +48,27 @@ body {
   height: 100%;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
   background: var(--cream);
   display: flex;
   flex-direction: column;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(100%);
 }
-.slide.active { opacity: 1; pointer-events: all; }
+.slide.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(0);
+}
+.slide.slide-left {
+  opacity: 0;
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.slide.slide-right {
+  opacity: 0;
+  transform: translateX(100%);
+  pointer-events: none;
+}
 
 /* ── CONSISTENT HEADER BAR ── */
 .slide-topbar {
@@ -421,11 +436,19 @@ p.slide-p-lg {
 .data-table tr:nth-child(even) td { background: var(--off); }
 
 /* ── NAVIGATION ── */
+.nav-zone {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 998;
+}
 .nav-bar {
   position: fixed;
   bottom: 20px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(15px);
   background: rgba(27, 45, 91, 0.92);
   backdrop-filter: blur(10px);
   border-radius: 100px;
@@ -435,6 +458,16 @@ p.slide-p-lg {
   gap: 12px;
   z-index: 999;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-zone:hover ~ .nav-bar,
+.nav-bar:hover,
+.nav-bar.visible-temp {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
 }
 .nav-btn {
   background: none;
@@ -1425,8 +1458,6 @@ p.slide-p-lg {
   </div>
 </div>
 
-</div><!-- /deck -->
-
 <!-- LIGHTBOX -->
 <div id="lightbox" onclick="closeLightbox()" style="
   display:none;position:fixed;inset:0;z-index:99999;
@@ -1467,12 +1498,15 @@ p.slide-p-lg {
 " onmouseenter="this.style.background='rgba(27,45,91,1)'" onmouseleave="this.style.background='rgba(27,45,91,0.85)'">⛶</button>
 
 <!-- NAVIGATION -->
+<div class="nav-zone" id="navZone"></div>
 <div class="nav-bar" id="navBar">
   <button class="nav-btn" onclick="go(-1)">&#8592;</button>
   <div class="nav-dots" id="navDots"></div>
   <div class="nav-counter" id="navCounter">1 / 14</div>
   <button class="nav-btn" onclick="go(1)">&#8594;</button>
 </div>
+
+</div><!-- /deck -->
 
 <script>
 const N = 14;
@@ -1559,6 +1593,32 @@ document.addEventListener('fullscreenchange', () => {
 
 function slide(n) { return document.getElementById('s' + n); }
 
+let navBarTimeout = null;
+function showNavBarTemporarily() {
+  const bar = document.getElementById('navBar');
+  if (!bar) return;
+  bar.classList.add('visible-temp');
+  clearTimeout(navBarTimeout);
+  navBarTimeout = setTimeout(() => {
+    bar.classList.remove('visible-temp');
+  }, 2000);
+}
+
+function updateSlideClasses(prev, next) {
+  for (let i = 1; i <= N; i++) {
+    const s = slide(i);
+    if (!s) continue;
+    s.classList.remove('active', 'slide-left', 'slide-right');
+    if (i < next) {
+      s.classList.add('slide-left');
+    } else if (i > next) {
+      s.classList.add('slide-right');
+    } else {
+      s.classList.add('active');
+    }
+  }
+}
+
 function buildDots() {
   const c = document.getElementById('navDots');
   c.innerHTML = '';
@@ -1572,11 +1632,12 @@ function buildDots() {
 
 function goTo(n) {
   if (n < 1 || n > N) return;
-  slide(cur).classList.remove('active');
+  const prev = cur;
   cur = n;
-  slide(cur).classList.add('active');
+  updateSlideClasses(prev, cur);
   document.getElementById('navCounter').textContent = cur + ' / ' + N;
   buildDots();
+  showNavBarTemporarily();
 }
 
 function go(d) { goTo(cur + d); }
@@ -1593,6 +1654,8 @@ document.addEventListener('touchend', e => {
   if (Math.abs(d) > 50) go(d > 0 ? 1 : -1);
 });
 
+// Setup initial slide position and layout
+updateSlideClasses(cur, cur);
 buildDots();
 </script>
 </body>
