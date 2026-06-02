@@ -552,6 +552,46 @@ p.slide-p-lg {
   background: #EBF5EF;
   border-left-color: var(--green);
 }
+
+/* ── LANDSCAPE ENFORCEMENT FOR MOBILE/TABLET ── */
+#rotate-prompt {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  background: var(--navy);
+  color: #fff;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+  padding: 40px;
+}
+#rotate-prompt .rotate-icon {
+  font-size: 56px;
+  animation: rotateHint 2s ease-in-out infinite;
+}
+#rotate-prompt .rotate-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #F5B942;
+}
+#rotate-prompt .rotate-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  max-width: 280px;
+}
+@keyframes rotateHint {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-20deg); }
+  75% { transform: rotate(20deg); }
+}
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+  #rotate-prompt { display: flex !important; }
+  .deck, .nav-bar, .nav-zone, #fsBtn { display: none !important; }
+}
 #gate {
   position: fixed;
   inset: 0;
@@ -576,6 +616,13 @@ p.slide-p-lg {
 </style>
 </head>
 <body>
+<!-- ROTATE DEVICE PROMPT -->
+<div id="rotate-prompt">
+  <div class="rotate-icon">📱</div>
+  <div class="rotate-text">Please Rotate Your Device</div>
+  <div class="rotate-sub">This presentation is best viewed in landscape mode. Please rotate your phone or tablet horizontally.</div>
+</div>
+
 <!-- PASSWORD GATE -->
 <div id="gate">
   <div style="
@@ -590,7 +637,7 @@ p.slide-p-lg {
     text-align:center;
     box-shadow:0 24px 64px rgba(0,0,0,0.4);
   ">
-    <div style="font-size:38px;margin-bottom:16px;">🕉️</div>
+    <div style="margin-bottom:16px;"><img src="ppt screenshots/Kumbh Mela Logo.jpg" alt="Kumbh Mela" style="width:80px;height:auto;filter:drop-shadow(0 2px 12px rgba(0,0,0,0.3));"></div>
     <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:4px;">Chalo <span style="color:#F5B942;">Kumbh</span></div>
     <div style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:32px;">Ardh Kumbh Mela 2027</div>
     <div style="position:relative;margin-bottom:10px;">
@@ -641,9 +688,9 @@ p.slide-p-lg {
     <div class="topbar-right">Official Digital Platform · Ardh Kumbh Mela 2027</div>
   </div>
   <div class="slide-body" style="align-items:center;justify-content:center;text-align:center;padding:0 80px;">
-    <!-- Emblem area -->
+    <!-- Logo -->
     <div style="margin-bottom:20px;">
-      <div style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(245,185,66,0.5);display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto;">🕉️</div>
+      <img src="ppt screenshots/Kumbh Mela Logo.jpg" alt="Kumbh Mela" style="width:clamp(100px,12vw,160px);height:auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,0.4));">
     </div>
     <div style="font-size:11px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:20px;">Ardh Kumbh Mela 2027 · Haridwar</div>
     <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,88px);font-weight:700;color:#ffffff;line-height:1;margin-bottom:10px;">Chalo <span style="color:#F5B942;">Kumbh</span></h1>
@@ -979,7 +1026,7 @@ p.slide-p-lg {
             <img src="ppt screenshots/Green Haridwar — Hero Section.png" style="width:100%;height:100%;display:block;">
           </div>
         </div>
-        <div style="background:#EBF5EF;border:1px solid #A8D0B5;border-radius:8px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="background:#EBF5EF;border:1px solid #A8D0B5;border-radius:8px;padding:20px;display:flex;flex-direction:column;justify-content:center;gap:16px;">
           <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:12px;">Partnering With</div>
           <div style="display:flex;flex-direction:column;gap:8px;">
             <div style="display:flex;align-items:center;gap:10px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;"></div><div style="font-size:13px;color:#2A4A35;">Local Administration & District Officials</div></div>
@@ -1431,7 +1478,7 @@ p.slide-p-lg {
     <div class="topbar-right">Thank You</div>
   </div>
   <div class="slide-body" style="align-items:center;justify-content:center;text-align:center;padding:0 80px;">
-    <div style="margin-bottom:24px;font-size:48px;">🙏</div>
+    <div style="margin-bottom:24px;"><img src="ppt screenshots/Kumbh Mela Logo.jpg" alt="Kumbh Mela" style="width:clamp(80px,10vw,130px);height:auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,0.4));"></div>
     <div style="font-size:11px;font-weight:600;letter-spacing:0.26em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:20px;">Har Har Gange · Jai Ganga Maiya</div>
     <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,76px);font-weight:700;color:#fff;line-height:1;margin-bottom:16px;">Together, Let Us Make<br><span style="color:#F5B942;">Kumbh 2027 Extraordinary</span></h1>
     <div style="height:2px;width:80px;background:var(--saffron2);margin:24px auto;border-radius:2px;"></div>
