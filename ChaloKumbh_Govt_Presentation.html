@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chalo Kumbh — Ardh Kumbh Mela 2027 | Official Digital Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:    #1B2D5B;
+  --navy2:   #243770;
+  --saffron: #D4600A;
+  --saffron2:#F07820;
+  --gold:    #C8921A;
+  --cream:   #FDFAF4;
+  --off:     #F5F0E8;
+  --text:    #1A1A1A;
+  --muted:   #5A5A5A;
+  --border:  #DDD5C8;
+  --green:   #2D6A3F;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #2a2a2a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ── SLIDE SHELL ── */
+.deck {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+}
+.slide.active { opacity: 1; pointer-events: all; }
+
+/* ── CONSISTENT HEADER BAR ── */
+.slide-topbar {
+  background: var(--navy);
+  padding: 0 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.topbar-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+.topbar-logo span { color: #F5B942; }
+.topbar-right {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── CONSISTENT FOOTER ── */
+.slide-footer {
+  background: var(--navy);
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  flex-shrink: 0;
+}
+.footer-left {
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.footer-right {
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.06em;
+}
+
+/* ── SLIDE BODY ── */
+.slide-body {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── SECTION LABEL ── */
+.sec-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 8px;
+}
+
+/* ── TYPOGRAPHY ── */
+h1.slide-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5.5vw, 68px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.1;
+}
+h2.slide-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(26px, 3.5vw, 44px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.15;
+}
+h3.slide-h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.2;
+}
+p.slide-p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+p.slide-p-lg {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* ── IMAGE PLACEHOLDER ── */
+.img-zone {
+  background: #E8E4DC;
+  border: 2px dashed #C4B99A;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #9A8E7A;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  position: relative;
+  overflow: hidden;
+}
+.img-zone .iz-icon { font-size: 28px; }
+.img-zone .iz-url {
+  font-size: 10px;
+  color: #B0A48E;
+  font-family: monospace;
+  margin-top: 2px;
+}
+.img-zone img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 4px;
+}
+
+/* ── BROWSER CHROME ── */
+.browser-chrome {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+}
+.browser-chrome-bar {
+  background: #E8E4DC;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #D4CFC4;
+}
+.bc-dots { display: flex; gap: 4px; }
+.bc-dot { width: 9px; height: 9px; border-radius: 50%; }
+.bc-dot.r { background: #FF5F57; }
+.bc-dot.y { background: #FFBD2E; }
+.bc-dot.g { background: #28C840; }
+.bc-url-bar {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #D4CFC4;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: monospace;
+}
+.browser-chrome-body {
+  overflow: hidden;
+  background: #F5F0EB;
+  width: 100%;
+  aspect-ratio: 1366 / 623;
+}
+.browser-chrome-body img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top;
+  background: #F5F0EB;
+  display: block;
+}
+.browser-chrome-body .img-zone {
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  background: #F5F2EC;
+}
+
+/* ── STAT BOX ── */
+.stat-box {
+  background: var(--navy);
+  border-radius: 8px;
+  padding: 20px 24px;
+  text-align: center;
+}
+.stat-box-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #F5B942;
+  line-height: 1;
+}
+.stat-box-lbl {
+  font-size: 11px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 6px;
+  letter-spacing: 0.05em;
+}
+
+/* ── FEATURE ROW ── */
+.feat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.feat-row:first-child { padding-top: 0; }
+.feat-row:last-child { border-bottom: none; padding-bottom: 0; }
+.feat-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--saffron);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.feat-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+.feat-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+
+/* ── SAFFRON ACCENT BAR ── */
+.accent-bar {
+  height: 4px;
+  width: 48px;
+  background: var(--saffron);
+  border-radius: 2px;
+  margin: 12px 0 20px;
+}
+
+/* ── TWO-COL LAYOUT ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  flex: 1;
+  padding: 28px 56px 12px;
+  overflow: hidden;
+}
+.two-col > * { min-width: 0; overflow: hidden; }
+.two-col-6040 { grid-template-columns: 0.55fr 1fr; }
+.two-col-4060 { grid-template-columns: 1fr 0.6fr; }
+
+/* ── FULL CONTENT AREA ── */
+.full-content {
+  flex: 1;
+  padding: 28px 56px 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── PILL TAG ── */
+.pill-tag {
+  display: inline-block;
+  background: #FEF3E8;
+  border: 1px solid #F5C48A;
+  color: var(--saffron);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.pill-tag-navy {
+  background: #EEF1F9;
+  border-color: #B8C2DE;
+  color: var(--navy);
+}
+.pill-tag-green {
+  background: #EBF5EF;
+  border-color: #A8D0B5;
+  color: var(--green);
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+/* ── NUMBERED LIST ── */
+.num-list { display: flex; flex-direction: column; gap: 0; }
+.num-item {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.num-item:last-child { border-bottom: none; }
+.num-circle {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── ICON ROW ── */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.icon-cell {
+  background: var(--off);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 14px;
+  text-align: center;
+}
+.icon-cell-emoji { font-size: 26px; margin-bottom: 8px; }
+.icon-cell-title { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.icon-cell-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* ── COVER SLIDE SPECIAL ── */
+.slide-cover-bg {
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.48) 100%),
+    url('Homepage header.png') center/cover no-repeat,
+    #333;
+}
+.slide-cover-bg .slide-topbar { background: rgba(255,255,255,0.06); }
+.slide-cover-bg .slide-footer { background: rgba(255,255,255,0.06); }
+
+/* ── SECTION DIVIDER SLIDE ── */
+.slide-section-bg {
+  background: var(--navy);
+}
+.slide-section-bg .slide-topbar { background: rgba(255,255,255,0.08); }
+.slide-section-bg .slide-footer { background: rgba(255,255,255,0.08); }
+
+/* ── TABLE ── */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th {
+  background: var(--navy);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+}
+.data-table td {
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:nth-child(even) td { background: var(--off); }
+
+/* ── NAVIGATION ── */
+.nav-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(27, 45, 91, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 100px;
+  padding: 8px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.nav-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+.nav-btn:hover { color: #F5B942; background: rgba(255,255,255,0.08); }
+.nav-dots { display: flex; gap: 6px; align-items: center; }
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.nav-dot.on { background: #F5B942; width: 18px; border-radius: 3px; }
+.nav-counter {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* GREEN HARIDWAR SPECIFIC */
+.gh-stat-row { display: flex; gap: 12px; }
+.gh-stat {
+  background: #EBF5EF;
+  border: 1px solid #A8D0B5;
+  border-radius: 8px;
+  padding: 14px 20px;
+  text-align: center;
+  flex: 1;
+}
+.gh-stat-val { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--green); }
+.gh-stat-lbl { font-size: 10.5px; color: #5A8A6A; margin-top: 3px; }
+
+/* STEP FLOW */
+.step-flow { display: flex; align-items: flex-start; gap: 0; }
+.step-item { flex: 1; text-align: center; padding: 0 12px; position: relative; }
+.step-item::after {
+  content: '›';
+  position: absolute;
+  right: -8px;
+  top: 12px;
+  font-size: 22px;
+  color: var(--saffron);
+  font-weight: 300;
+}
+.step-item:last-child::after { display: none; }
+.step-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 10px;
+}
+.step-lbl { font-size: 12px; font-weight: 600; color: var(--navy); }
+.step-desc { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+/* HIGHLIGHT BOX */
+.highlight-box {
+  background: #FEF3E8;
+  border-left: 4px solid var(--saffron);
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+}
+.highlight-box-navy {
+  background: #EEF1F9;
+  border-left-color: var(--navy);
+}
+.highlight-box-green {
+  background: #EBF5EF;
+  border-left-color: var(--green);
+}
+</style>
+</head>
+<body>
+<!-- PASSWORD GATE -->
+<div id="gate" style="
+  position:fixed;inset:0;z-index:999999;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.70) 100%),
+    url('Homepage header.png') center/cover no-repeat,#1B2D5B;
+  display:flex;align-items:center;justify-content:center;
+">
+  <div style="
+    background:rgba(255,255,255,0.07);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:16px;
+    padding:48px 52px 44px;
+    width:360px;
+    text-align:center;
+    box-shadow:0 24px 64px rgba(0,0,0,0.4);
+  ">
+    <div style="font-size:38px;margin-bottom:16px;">🕉️</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:4px;">Chalo <span style="color:#F5B942;">Kumbh</span></div>
+    <div style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:32px;">Ardh Kumbh Mela 2027</div>
+    <div style="position:relative;margin-bottom:10px;">
+      <input id="pwInput" type="password" placeholder="Enter access password"
+        onkeydown="if(event.key==='Enter')checkPw()"
+        style="
+          width:100%;padding:13px 44px 13px 16px;
+          border-radius:8px;border:1.5px solid rgba(255,255,255,0.25);
+          background:rgba(255,255,255,0.1);
+          color:#fff;font-size:14px;font-family:'Inter',sans-serif;
+          outline:none;letter-spacing:0.06em;
+          transition:border-color 0.2s;
+        "
+        onfocus="this.style.borderColor='rgba(245,185,66,0.7)'"
+        onblur="this.style.borderColor='rgba(255,255,255,0.25)'"
+      >
+      <span onclick="togglePwVis()" style="
+        position:absolute;right:12px;top:50%;transform:translateY(-50%);
+        cursor:pointer;font-size:16px;color:rgba(255,255,255,0.5);
+        user-select:none;
+      " id="eyeIcon">👁</span>
+    </div>
+    <div id="pwErr" style="font-size:11px;color:#f87171;min-height:16px;margin-bottom:12px;display:none;">
+      Incorrect password. Please try again.
+    </div>
+    <button onclick="checkPw()" style="
+      width:100%;padding:13px;border-radius:8px;border:none;
+      background:#F5B942;color:#1B2D5B;
+      font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+      cursor:pointer;font-family:'Inter',sans-serif;
+      transition:background 0.2s;
+    "
+    onmouseenter="this.style.background='#FFD060'"
+    onmouseleave="this.style.background='#F5B942'"
+    >Enter Presentation</button>
+    <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:20px;letter-spacing:0.08em;">chalokumbh.com · Official Digital Platform</div>
+  </div>
+</div>
+
+<div class="deck" id="deck" style="display:none;">
+
+<!-- ══════════════════════════════════════════
+     SLIDE 1 — COVER
+═══════════════════════════════════════════ -->
+<div class="slide slide-cover-bg active" id="s1">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Official Digital Platform · Ardh Kumbh Mela 2027</div>
+  </div>
+  <div class="slide-body" style="align-items:center;justify-content:center;text-align:center;padding:0 80px;">
+    <!-- Emblem area -->
+    <div style="margin-bottom:20px;">
+      <div style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(245,185,66,0.5);display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto;">🕉️</div>
+    </div>
+    <div style="font-size:11px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:20px;">Ardh Kumbh Mela 2027 · Haridwar</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,88px);font-weight:700;color:#ffffff;line-height:1;margin-bottom:10px;">Chalo <span style="color:#F5B942;">Kumbh</span></h1>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2.2vw,26px);color:rgba(255,255,255,0.65);font-style:italic;margin-bottom:36px;">Official Digital Partner — Ardh Kumbh Mela 2027, Haridwar</div>
+    <div style="height:2px;width:80px;background:var(--saffron2);border-radius:2px;margin:0 auto 36px;"></div>
+    <div style="display:flex;gap:48px;justify-content:center;">
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#F5B942;line-height:1;">150M+</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:5px;letter-spacing:0.06em;">Projected Pilgrims</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,0.15);"></div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#F5B942;line-height:1;">45</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:5px;letter-spacing:0.06em;">Days of Divinity</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,0.15);"></div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#F5B942;line-height:1;">Jan–Apr</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:5px;letter-spacing:0.06em;">2027</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">chalokumbh.com</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 2 — PLATFORM OVERVIEW
+═══════════════════════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Platform Overview</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col" style="align-items:start;">
+      <!-- Left: Text -->
+      <div style="display:flex;flex-direction:column;gap:0;padding-top:4px;">
+        <div class="sec-label">What We Built</div>
+        <h2 class="slide-h2">The Official Digital Platform for Ardh Kumbh 2027</h2>
+        <div class="accent-bar"></div>
+        <p class="slide-p-lg" style="margin-bottom:20px;">chalokumbh.com is a comprehensive web platform that brings the Kumbh Mela experience to every devotee — whether they travel to Haridwar or join from across the world.</p>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Online Puja & Priest Booking</div><div class="feat-desc">Devotees book sacred rituals performed at Har Ki Pauri and watch them live from anywhere.</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Live Darshan Streaming</div><div class="feat-desc">Real-time broadcast of Ganga Aarti and Shahi Snan ceremonies to millions worldwide.</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Hotel & Accommodation Booking</div><div class="feat-desc">Curated stay options near the ghats with real-time availability.</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Green Haridwar Initiative</div><div class="feat-desc">Citizen-driven environmental reporting, volunteer drives, and sustainability challenges.</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Multi-Portal Management</div><div class="feat-desc">Dedicated dashboards for Pandits, Hotels, and the administrative team.</div></div>
+        </div>
+      </div>
+      <!-- Right: Website screenshot -->
+      <div style="display:flex;flex-direction:column;gap:14px;padding-top:4px;">
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Homepage Screenshot.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <span class="pill-tag">Next.js 15</span>
+          <span class="pill-tag-navy">Live on chalokumbh.com</span>
+          <span class="pill-tag">React 19</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 2</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 3 — ONLINE PUJA
+═══════════════════════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Feature · Online Puja</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col two-col-6040">
+      <!-- Left: Screenshot -->
+      <div style="display:flex;flex-direction:column;gap:14px;padding-top:4px;">
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/book</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Online Puja Booking Page.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+      </div>
+      <!-- Right: Details -->
+      <div style="display:flex;flex-direction:column;gap:0;padding-top:4px;">
+        <div class="sec-label">Online Puja & E-Seva</div>
+        <h2 class="slide-h2">Book Sacred Rituals from Anywhere in the World</h2>
+        <div class="accent-bar"></div>
+        <p class="slide-p" style="margin-bottom:20px;">Devotees who cannot travel to Haridwar can book a certified Pandit to perform Vedic rituals on their behalf at Har Ki Pauri — personalised with their name and gotra.</p>
+
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:16px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--navy);margin-bottom:12px;">Booking Flow</div>
+          <div class="step-flow">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-lbl">Choose Ritual</div>
+              <div class="step-desc">Aarti, Puja, Snan, Kalpvas</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-lbl">Select Date & Slot</div>
+              <div class="step-desc">3 daily time slots</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-lbl">Pick Pandit</div>
+              <div class="step-desc">Certified priests</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-lbl">Join Live</div>
+              <div class="step-desc">+ Prasad delivered</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feat-row" style="padding-top:0;">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Rituals Available</div><div class="feat-desc">Ganga Aarti · E-Pooja · Shahi Snan · Kalpvas · Pitru Tarpan · Dosha Nivaran</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Prasad Delivery</div><div class="feat-desc">Sanctified offerings from the ritual shipped to devotees worldwide</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Personalised Sankalp</div><div class="feat-desc">Ritual performed with devotee's name, gotra, and intention</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 3</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 4 — LIVE DARSHAN
+═══════════════════════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Feature · Live Darshan</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col two-col-4060" style="align-items:start;">
+      <!-- Left: Details -->
+      <div style="display:flex;flex-direction:column;padding-top:4px;">
+        <div class="sec-label">Live Darshan · Real-Time Streaming</div>
+        <h2 class="slide-h2">Watch Sacred Ceremonies Live — Worldwide</h2>
+        <div class="accent-bar"></div>
+        <p class="slide-p" style="margin-bottom:20px;">Ganga Aarti, Shahi Snan, and other ceremonies are live-streamed directly on the chalokumbh.com homepage — no login required. Powered by LiveKit WebRTC for ultra-low latency.</p>
+        <div class="feat-row" style="padding-top:0;">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Homepage Integration</div><div class="feat-desc">Live stream appears automatically on the homepage when a ceremony begins</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">No Login Required</div><div class="feat-desc">Any devotee can watch — no account needed, accessible globally</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">QR Code Access</div><div class="feat-desc">chalokumbh.com/live redirects instantly to the Live Darshan section — ideal for banners and print media at the Mela</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Admin Stream Control</div><div class="feat-desc">Operators schedule, start, and assign streams to Pandits from the Company Portal</div></div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="highlight-box">
+            <div style="font-size:12px;font-weight:600;color:var(--saffron);margin-bottom:4px;">Technology</div>
+            <div style="font-size:12px;color:var(--muted);">LiveKit Cloud · WebRTC · Viewer token authentication · Multi-stream support</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: Screenshot -->
+      <div style="padding-top:4px;display:flex;flex-direction:column;gap:14px;">
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/#live-darshan</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Live Darshan Section Screenshot.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 4</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 5 — HOTELS
+═══════════════════════════════════════════ -->
+<div class="slide" id="s5">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Feature · Hotel Booking</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col two-col-6040" style="align-items:start;">
+      <!-- Left: Screenshot -->
+      <div style="padding-top:4px;display:flex;flex-direction:column;gap:14px;">
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/hotels</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Hotels Listing Page.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+      </div>
+      <!-- Right: Details -->
+      <div style="display:flex;flex-direction:column;padding-top:4px;">
+        <div class="sec-label">Hotel & Accommodation Booking</div>
+        <h2 class="slide-h2">Handpicked Stays Near Har Ki Pauri</h2>
+        <div class="accent-bar"></div>
+        <p class="slide-p" style="margin-bottom:20px;">Verified hotels, ashrams, dharamshalas, and tent cities within walking distance of the ghats — bookable directly through the platform.</p>
+
+        <div class="feat-row" style="padding-top:0;">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Smart Filtering</div><div class="feat-desc">Filter by area (Har Ki Pauri, Jwalapur, City Centre), property type, and price tier</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Three Price Tiers</div><div class="feat-desc">Budget (≤₹2,000/night) · Mid (₹2,000–5,000) · Luxury (₹5,000+)</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Property Types</div><div class="feat-desc">Heritage Hotels · Tent Cities · Ashrams · Dharamshalas · Luxury Resorts</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Commission Management</div><div class="feat-desc">Flexible commission model — percentage or flat fee with real-time earnings tracking</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Real-Time Availability</div><div class="feat-desc">Hotels control room types and blocked dates through their own dedicated portal</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 5</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 6 — GREEN HARIDWAR OVERVIEW
+═══════════════════════════════════════════ -->
+<div class="slide" id="s6">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Feature · Green Haridwar</div>
+  </div>
+  <div class="slide-body">
+    <div class="full-content">
+      <div class="sec-label">Environmental Initiative</div>
+      <h2 class="slide-h2" style="margin-bottom:8px;">Green Haridwar 🌿</h2>
+      <p class="slide-p" style="margin-bottom:24px;max-width:700px;">A citizen-powered environmental platform built within chalokumbh.com — enabling real-time issue reporting, volunteer coordination, and sustainability challenges to ensure a clean and green Kumbh Mela.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px;">
+        <div style="background:#EBF5EF;border:1px solid #A8D0B5;border-radius:8px;padding:16px;text-align:center;">
+          <div style="font-size:24px;margin-bottom:8px;">📢</div>
+          <div style="font-size:12px;font-weight:600;color:var(--green);">Social Media Campaigns</div>
+          <div style="font-size:10.5px;color:#5A8A6A;margin-top:4px;">Awareness across India & globally</div>
+        </div>
+        <div style="background:#EBF5EF;border:1px solid #A8D0B5;border-radius:8px;padding:16px;text-align:center;">
+          <div style="font-size:24px;margin-bottom:8px;">👥</div>
+          <div style="font-size:12px;font-weight:600;color:var(--green);">Volunteer Drives</div>
+          <div style="font-size:10.5px;color:#5A8A6A;margin-top:4px;">Coordinating cleanliness drives</div>
+        </div>
+        <div style="background:#EBF5EF;border:1px solid #A8D0B5;border-radius:8px;padding:16px;text-align:center;">
+          <div style="font-size:24px;margin-bottom:8px;">🏆</div>
+          <div style="font-size:12px;font-weight:600;color:var(--green);">Green Challenges</div>
+          <div style="font-size:10.5px;color:#5A8A6A;margin-top:4px;">Reward-based citizen participation</div>
+        </div>
+        <div style="background:#EBF5EF;border:1px solid #A8D0B5;border-radius:8px;padding:16px;text-align:center;">
+          <div style="font-size:24px;margin-bottom:8px;">📍</div>
+          <div style="font-size:12px;font-weight:600;color:var(--green);">Issue Reporting</div>
+          <div style="font-size:10.5px;color:#5A8A6A;margin-top:4px;">Real-time geo-tagged reports</div>
+        </div>
+        <div style="background:#EBF5EF;border:1px solid #A8D0B5;border-radius:8px;padding:16px;text-align:center;">
+          <div style="font-size:24px;margin-bottom:8px;">📡</div>
+          <div style="font-size:12px;font-weight:600;color:var(--green);">Event Awareness</div>
+          <div style="font-size:10.5px;color:#5A8A6A;margin-top:4px;">Live coverage & engagement</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/green-haridwar</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Green Haridwar — Hero Section.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+        <div style="background:#EBF5EF;border:1px solid #A8D0B5;border-radius:8px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:12px;">Partnering With</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;"></div><div style="font-size:13px;color:#2A4A35;">Local Administration & District Officials</div></div>
+            <div style="display:flex;align-items:center;gap:10px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;"></div><div style="font-size:13px;color:#2A4A35;">Schools & Educational Institutions</div></div>
+            <div style="display:flex;align-items:center;gap:10px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;"></div><div style="font-size:13px;color:#2A4A35;">Environmental NGOs</div></div>
+            <div style="display:flex;align-items:center;gap:10px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;"></div><div style="font-size:13px;color:#2A4A35;">Social Media Influencers</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 6</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 7 — GREEN HARIDWAR: REPORTING
+═══════════════════════════════════════════ -->
+<div class="slide" id="s7">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Green Haridwar · Issue Reporting System</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col two-col-6040" style="align-items:start;">
+      <!-- Left: Screenshots -->
+      <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px;">
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/green-haridwar — Map View</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Haridwar Interactive Map with Report Pins.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/green-haridwar — Report Form</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Issue Report Submission Form.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+      </div>
+      <!-- Right: Details -->
+      <div style="display:flex;flex-direction:column;padding-top:4px;">
+        <div class="sec-label">Real-Time Issue Reporting</div>
+        <h2 class="slide-h2" style="font-size:clamp(22px,2.8vw,36px);">Citizen-Powered Environmental Monitoring</h2>
+        <div class="accent-bar" style="background:var(--green);"></div>
+        <p class="slide-p" style="margin-bottom:18px;">Any citizen can report an environmental issue — garbage, pollution, or unclean areas — pinpointed on a live map of Haridwar district.</p>
+
+        <div class="feat-row" style="padding-top:0;">
+          <div class="feat-dot" style="background:var(--green);"></div>
+          <div><div class="feat-title">4 Issue Categories</div><div class="feat-desc">Garbage · Pollution · Dirty Area · Other — each colour-coded on the map</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot" style="background:var(--green);"></div>
+          <div><div class="feat-title">Location Picker</div><div class="feat-desc">Citizen selects exact location on an interactive Leaflet map — geo-tagged and publicly visible</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot" style="background:var(--green);"></div>
+          <div><div class="feat-title">Photo Upload</div><div class="feat-desc">Photographic evidence attached to each report for transparency and faster resolution</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot" style="background:var(--green);"></div>
+          <div><div class="feat-title">Status Tracking</div><div class="feat-desc">Reports tracked from Filed → In Progress → Resolved, visible to all citizens</div></div>
+        </div>
+        <div style="margin-top:14px;">
+          <div class="highlight-box-green" style="background:#EBF5EF;border-left:4px solid var(--green);border-radius:0 6px 6px 0;padding:12px 16px;">
+            <div style="font-size:12px;color:#2D6A3F;line-height:1.6;"><strong>Government benefit:</strong> Real-time visibility into cleanliness issues across the Mela grounds — enabling faster deployment of sanitation teams.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 7</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 8 — GREEN HARIDWAR: CHALLENGES
+═══════════════════════════════════════════ -->
+<div class="slide" id="s8">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Green Haridwar · Volunteer Challenges</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col two-col-4060" style="align-items:start;">
+      <!-- Left: Details -->
+      <div style="display:flex;flex-direction:column;padding-top:4px;">
+        <div class="sec-label">Green Challenges & Volunteer Engagement</div>
+        <h2 class="slide-h2" style="font-size:clamp(22px,2.8vw,36px);">Gamified Sustainability for Mass Participation</h2>
+        <div class="accent-bar" style="background:var(--green);"></div>
+        <p class="slide-p" style="margin-bottom:18px;">Organisations and citizens join structured Green Challenges — time-bound sustainability goals with public leaderboards and reward recognition.</p>
+
+        <div class="feat-row" style="padding-top:0;">
+          <div class="feat-dot" style="background:var(--green);"></div>
+          <div><div class="feat-title">Challenge Structure</div><div class="feat-desc">Each challenge has a title, description, goal, and end date — participants join and track their contribution</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot" style="background:var(--green);"></div>
+          <div><div class="feat-title">Public Participation Counter</div><div class="feat-desc">Join count shown publicly to build social momentum and mass movement</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot" style="background:var(--green);"></div>
+          <div><div class="feat-title">Volunteer Registration</div><div class="feat-desc">Volunteers register through the platform — coordinated by the Green Haridwar team for organised drives</div></div>
+        </div>
+
+        <div style="margin-top:16px;display:flex;gap:12px;">
+          <div class="gh-stat" style="background:#EBF5EF;border:1px solid #A8D0B5;border-radius:8px;padding:14px 20px;text-align:center;flex:1;">
+            <div class="gh-stat-val">2,400+</div>
+            <div class="gh-stat-lbl">Volunteers Registered</div>
+          </div>
+          <div class="gh-stat" style="background:#EBF5EF;border:1px solid #A8D0B5;border-radius:8px;padding:14px 20px;text-align:center;flex:1;">
+            <div class="gh-stat-val">12</div>
+            <div class="gh-stat-lbl">Active Challenges</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: Screenshots -->
+      <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px;">
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/green-haridwar — Challenges</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Green Challenges Listing.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/green-haridwar — Reports List</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Recent Environmental Reports List.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 8</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 9 — PANDIT DASHBOARD
+═══════════════════════════════════════════ -->
+<div class="slide" id="s9">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Portal · Pandit Dashboard</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col two-col-4060" style="align-items:start;">
+      <!-- Left: Details -->
+      <div style="display:flex;flex-direction:column;padding-top:4px;">
+        <div class="sec-label">Pandit Portal</div>
+        <h2 class="slide-h2" style="font-size:clamp(22px,2.8vw,36px);">Dedicated Dashboard for Registered Priests</h2>
+        <div class="accent-bar"></div>
+        <p class="slide-p" style="margin-bottom:20px;">Each registered Pandit has a private portal to manage their puja sessions, set availability, conduct live streams, and view their booking history.</p>
+        <div class="feat-row" style="padding-top:0;">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Booking Management</div><div class="feat-desc">View today's sessions, upcoming bookings, and full booking history with pilgrim details</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Weekly Availability</div><div class="feat-desc">Set available days and time slots — the booking system only allows pilgrim bookings on available days</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Live Session Access</div><div class="feat-desc">Join or start assigned LiveKit streaming rooms directly from the dashboard</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Approval Workflow</div><div class="feat-desc">Pandit applications reviewed and approved by the Company Portal admin before going live</div></div>
+        </div>
+      </div>
+      <!-- Right: Screenshot -->
+      <div style="padding-top:4px;">
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/pandit-dashboard</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Pandit Dashboard — Main Overview.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 9</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 10 — HOTEL DASHBOARD
+═══════════════════════════════════════════ -->
+<div class="slide" id="s10">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Portal · Hotel Dashboard</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col two-col-6040" style="align-items:start;">
+      <!-- Left: Screenshot -->
+      <div style="padding-top:4px;">
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/hotel-dashboard</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Hotel Dashboard — Main Overview.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+      </div>
+      <!-- Right: Details -->
+      <div style="display:flex;flex-direction:column;padding-top:4px;">
+        <div class="sec-label">Hotel Partner Portal</div>
+        <h2 class="slide-h2" style="font-size:clamp(22px,2.8vw,36px);">Self-Service Portal for Hotel Partners</h2>
+        <div class="accent-bar"></div>
+        <p class="slide-p" style="margin-bottom:20px;">Hotel owners manage their full property profile — rooms, pricing, photos, availability, and earnings — through a dedicated portal without requiring technical support.</p>
+        <div class="feat-row" style="padding-top:0;">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Room Type Management</div><div class="feat-desc">Add, edit, and toggle room types with pricing per night and max occupancy</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Availability & Date Blocking</div><div class="feat-desc">Block dates for maintenance or peak Shahi Snan periods to prevent overbooking</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Photo Gallery</div><div class="feat-desc">Upload and manage property photos displayed in public listings</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Earnings Dashboard</div><div class="feat-desc">Gross revenue, commission collected, and net payout — updated in real-time</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 10</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 11 — COMPANY PORTAL
+═══════════════════════════════════════════ -->
+<div class="slide" id="s11">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Portal · Admin / Company Portal</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col two-col-6040" style="align-items:start;">
+      <!-- Left: Screenshot -->
+      <div style="padding-top:4px;display:flex;flex-direction:column;gap:12px;">
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/company-portal</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Company Portal — Main Dashboard.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+        <div class="browser-chrome" style="width:100%;">
+          <div class="browser-chrome-bar">
+            <div class="bc-dots"><div class="bc-dot r"></div><div class="bc-dot y"></div><div class="bc-dot g"></div></div>
+            <div class="bc-url-bar">chalokumbh.com/company-portal/bookings</div>
+          </div>
+          <div class="browser-chrome-body">
+            <img src="ppt screenshots/Bookings Management Table.png" style="width:100%;height:100%;display:block;">
+          </div>
+        </div>
+      </div>
+      <!-- Right: Details -->
+      <div style="display:flex;flex-direction:column;padding-top:4px;">
+        <div class="sec-label">Admin · Company Portal</div>
+        <h2 class="slide-h2" style="font-size:clamp(22px,2.8vw,36px);">Complete Platform Administration</h2>
+        <div class="accent-bar"></div>
+        <p class="slide-p" style="margin-bottom:18px;">The central command centre for the Chalo Kumbh team — full oversight of all bookings, revenue, personnel, and live operations.</p>
+        <div class="feat-row" style="padding-top:0;">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Platform Analytics</div><div class="feat-desc">Live stats — total bookings, revenue, active pandits, registered hotels, and user base</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Pandit Approvals</div><div class="feat-desc">Review registrations, approve or suspend pandit accounts with full audit trail</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Livestream Management</div><div class="feat-desc">Schedule, assign, and control all live streams — choose what shows on the homepage</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Marketing — Promo Slots</div><div class="feat-desc">Configure homepage banners and promotional slots for campaigns and event announcements</div></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-dot"></div>
+          <div><div class="feat-title">Hotel Earnings Summary</div><div class="feat-desc">Platform-wide hotel revenue, commission collected, and confirmed booking totals</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 11</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 12 — SERVICES OVERVIEW
+═══════════════════════════════════════════ -->
+<div class="slide" id="s12">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Full Services Catalogue</div>
+  </div>
+  <div class="slide-body">
+    <div class="full-content" style="padding-top:28px;">
+      <div class="sec-label">Pilgrimage Services</div>
+      <h2 class="slide-h2" style="margin-bottom:8px;">Everything a Pilgrim Needs — In One Platform</h2>
+      <div class="accent-bar"></div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width:22%;">Service</th>
+            <th style="width:38%;">Description</th>
+            <th style="width:40%;">Key Features</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Rituals & Online Puja</strong></td>
+            <td>Sacred rituals performed at Har Ki Pauri — streamed live to devotees worldwide</td>
+            <td>Ganga Aarti · E-Pooja · Pitru Tarpan · Global Prasad Delivery</td>
+          </tr>
+          <tr>
+            <td><strong>VIP Ghat Access</strong></td>
+            <td>Priority bathing slots on Shahi Snan dates with safety escort</td>
+            <td>Reserved windows on key dates · Security escort · Medical standby</td>
+          </tr>
+          <tr>
+            <td><strong>Premium Stays</strong></td>
+            <td>Heritage hotels and tent cities overlooking the Ganga near Har Ki Pauri</td>
+            <td>Heritage hotels · Swiss tents · Ashrams · Dharamshalas</td>
+          </tr>
+          <tr>
+            <td><strong>Satvik Meals</strong></td>
+            <td>Pure vegetarian fine dining following Ayurvedic principles across Mela sectors</td>
+            <td>Multi-course satvik meals · Group & camp catering · Hygiene certified</td>
+          </tr>
+          <tr>
+            <td><strong>Travel Assistance</strong></td>
+            <td>End-to-end journey support — rail, air, road, and on-ground navigation</td>
+            <td>Jolly Grant airport transfers · Mela shuttles · Sector maps</td>
+          </tr>
+          <tr>
+            <td><strong>24×7 Concierge</strong></td>
+            <td>Round-the-clock multi-lingual support — phone, WhatsApp, on-site desk</td>
+            <td>Emergency coordination · Police · Ambulance · Multi-language</td>
+          </tr>
+          <tr>
+            <td><strong>Veda Hydration</strong></td>
+            <td>Premium Himalayan mineral water in glass bottles with exchange hubs near the ghats</td>
+            <td>Himalayan source · Exchange hubs at Har Ki Pauri</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 12</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 13 — IMPACT & WHY IT MATTERS
+═══════════════════════════════════════════ -->
+<div class="slide" id="s13">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Impact & Government Alignment</div>
+  </div>
+  <div class="slide-body">
+    <div class="full-content" style="padding-top:28px;">
+      <div class="sec-label">Why It Matters</div>
+      <h2 class="slide-h2" style="margin-bottom:8px;">Digital Infrastructure for India's Largest Gathering</h2>
+      <div class="accent-bar"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:24px;">
+        <div style="background:var(--navy);border-radius:8px;padding:24px;color:#fff;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#F5B942;margin-bottom:6px;">150M+</div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:6px;">Pilgrims Enabled</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;">Every devotee — whether at Haridwar or across the globe — can participate in the sacred events</div>
+        </div>
+        <div style="background:var(--navy);border-radius:8px;padding:24px;color:#fff;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#F5B942;margin-bottom:6px;">24×7</div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:6px;">Operational Support</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;">Round-the-clock concierge, emergency coordination, and digital service delivery</div>
+        </div>
+        <div style="background:var(--navy);border-radius:8px;padding:24px;color:#fff;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#F5B942;margin-bottom:6px;">3 Portals</div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:6px;">Partner Ecosystem</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;">Dedicated portals for Pandits, Hotels, and the Administration — each fully self-managed</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="highlight-box">
+          <div style="font-size:12px;font-weight:700;color:var(--saffron);margin-bottom:6px;">Digital India Alignment</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.7;">Supports the Government's Digital India mission — bringing pilgrimage services, environmental monitoring, and administrative tools onto a unified digital platform.</div>
+        </div>
+        <div class="highlight-box-navy">
+          <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:6px;">Swachh Bharat Alignment</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.7;">The Green Haridwar initiative directly supports Swachh Bharat — enabling real-time waste and pollution reporting with geo-tagging for faster government response.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Slide 13</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 14 — CLOSING
+═══════════════════════════════════════════ -->
+<div class="slide slide-cover-bg" id="s14">
+  <div class="slide-topbar">
+    <div class="topbar-logo">Chalo <span>Kumbh</span></div>
+    <div class="topbar-right">Thank You</div>
+  </div>
+  <div class="slide-body" style="align-items:center;justify-content:center;text-align:center;padding:0 80px;">
+    <div style="margin-bottom:24px;font-size:48px;">🙏</div>
+    <div style="font-size:11px;font-weight:600;letter-spacing:0.26em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:20px;">Har Har Gange · Jai Ganga Maiya</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,76px);font-weight:700;color:#fff;line-height:1;margin-bottom:16px;">Together, Let Us Make<br><span style="color:#F5B942;">Kumbh 2027 Extraordinary</span></h1>
+    <div style="height:2px;width:80px;background:var(--saffron2);margin:24px auto;border-radius:2px;"></div>
+    <div style="display:flex;gap:48px;justify-content:center;margin-top:8px;">
+      <div>
+        <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:6px;">Platform</div>
+        <div style="font-size:16px;font-weight:600;color:#F5B942;">chalokumbh.com</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,0.12);"></div>
+      <div>
+        <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:6px;">Built By</div>
+        <div style="font-size:16px;font-weight:600;color:#F5B942;">USJ Technologies</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,0.12);"></div>
+      <div>
+        <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:6px;">Contact</div>
+        <div style="font-size:16px;font-weight:600;color:#F5B942;">techteam@usjtechnologies.com</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-left">chalokumbh.com · Official Digital Partner</div>
+    <div class="footer-right">Ardh Kumbh Mela 2027 · Haridwar</div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()" style="
+  display:none;position:fixed;inset:0;z-index:99999;
+  background:rgba(0,0,0,0.92);
+  align-items:center;justify-content:center;
+  cursor:zoom-out;
+">
+  <img id="lbImg" src="" alt="" style="
+    max-width:94vw;max-height:92vh;
+    border-radius:8px;
+    box-shadow:0 24px 80px rgba(0,0,0,0.6);
+    object-fit:contain;
+    user-select:none;
+  ">
+  <button onclick="closeLightbox()" style="
+    position:fixed;top:20px;right:24px;
+    width:40px;height:40px;border-radius:50%;
+    background:rgba(255,255,255,0.15);
+    border:2px solid rgba(255,255,255,0.4);
+    color:#fff;font-size:20px;line-height:1;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background 0.2s;
+    backdrop-filter:blur(6px);
+  " onmouseenter="this.style.background='rgba(255,255,255,0.3)'"
+     onmouseleave="this.style.background='rgba(255,255,255,0.15)'"
+  >✕</button>
+</div>
+
+<!-- FULLSCREEN BUTTON -->
+<button id="fsBtn" onclick="toggleFS()" title="Toggle Fullscreen" style="
+  position:fixed;top:14px;right:16px;z-index:9999;
+  background:rgba(27,45,91,0.85);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.2);border-radius:6px;
+  color:#fff;font-size:14px;cursor:pointer;
+  padding:6px 10px;line-height:1;
+  transition:background 0.2s;
+" onmouseenter="this.style.background='rgba(27,45,91,1)'" onmouseleave="this.style.background='rgba(27,45,91,0.85)'">⛶</button>
+
+<!-- NAVIGATION -->
+<div class="nav-bar" id="navBar">
+  <button class="nav-btn" onclick="go(-1)">&#8592;</button>
+  <div class="nav-dots" id="navDots"></div>
+  <div class="nav-counter" id="navCounter">1 / 14</div>
+  <button class="nav-btn" onclick="go(1)">&#8594;</button>
+</div>
+
+<script>
+const N = 14;
+let cur = 1;
+
+// ── PASSWORD GATE ──
+const PASS = 'TargetKumbh@2027';
+function checkPw() {
+  const val = document.getElementById('pwInput').value;
+  const err = document.getElementById('pwErr');
+  if (val === PASS) {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('deck').style.display = 'block';
+    sessionStorage.setItem('ck_auth', '1');
+  } else {
+    err.style.display = 'block';
+    const inp = document.getElementById('pwInput');
+    inp.style.borderColor = 'rgba(248,113,113,0.8)';
+    inp.value = '';
+    inp.focus();
+    setTimeout(() => { err.style.display = 'none'; inp.style.borderColor = 'rgba(255,255,255,0.25)'; }, 2500);
+  }
+}
+function togglePwVis() {
+  const inp = document.getElementById('pwInput');
+  const eye = document.getElementById('eyeIcon');
+  if (inp.type === 'password') { inp.type = 'text'; eye.textContent = '🙈'; }
+  else { inp.type = 'password'; eye.textContent = '👁'; }
+}
+// Auto-unlock if already authenticated this session
+if (sessionStorage.getItem('ck_auth') === '1') {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('deck').style.display = 'block';
+}
+
+// ── LIGHTBOX ──
+function openLightbox(src) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lbImg').src = src;
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+  document.getElementById('lbImg').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('lightbox').style.display === 'flex') {
+    closeLightbox();
+    e.stopPropagation();
+  }
+});
+
+// Wire up all browser-chrome windows as clickable
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.browser-chrome').forEach(bc => {
+    const img = bc.querySelector('.browser-chrome-body img');
+    if (!img) return;
+    bc.style.cursor = 'zoom-in';
+    bc.addEventListener('click', e => {
+      e.stopPropagation();
+      openLightbox(img.src);
+    });
+  });
+});
+
+function toggleFS() {
+  const btn = document.getElementById('fsBtn');
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+    btn.textContent = '✕';
+    btn.title = 'Exit Fullscreen';
+  } else {
+    document.exitFullscreen();
+    btn.textContent = '⛶';
+    btn.title = 'Toggle Fullscreen';
+  }
+}
+document.addEventListener('fullscreenchange', () => {
+  const btn = document.getElementById('fsBtn');
+  btn.textContent = document.fullscreenElement ? '✕' : '⛶';
+});
+
+function slide(n) { return document.getElementById('s' + n); }
+
+function buildDots() {
+  const c = document.getElementById('navDots');
+  c.innerHTML = '';
+  for (let i = 1; i <= N; i++) {
+    const d = document.createElement('div');
+    d.className = 'nav-dot' + (i === cur ? ' on' : '');
+    d.onclick = () => goTo(i);
+    c.appendChild(d);
+  }
+}
+
+function goTo(n) {
+  if (n < 1 || n > N) return;
+  slide(cur).classList.remove('active');
+  cur = n;
+  slide(cur).classList.add('active');
+  document.getElementById('navCounter').textContent = cur + ' / ' + N;
+  buildDots();
+}
+
+function go(d) { goTo(cur + d); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(-1); }
+});
+
+let tx = 0;
+document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+document.addEventListener('touchend', e => {
+  const d = tx - e.changedTouches[0].clientX;
+  if (Math.abs(d) > 50) go(d > 0 ? 1 : -1);
+});
+
+buildDots();
+</script>
+</body>
+</html>
